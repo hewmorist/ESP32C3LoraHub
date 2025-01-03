@@ -98,20 +98,20 @@ void mqtt_discovery() {
     reconnect();
   }
 
-  StaticJsonDocument<256> doc;  // Allocate memory for the JSON document
+  JsonDocument doc;  // Allocate memory for the JSON document
 
   doc["name"] = "Mailbox";
   doc["device_class"] = "occupancy";
   doc["state_topic"] = "homeassistant/binary_sensor/" + uniqueID + "/state";
   doc["unique_id"] = uniqueID;  // Use MAC-based unique ID
 
-  JsonObject device = doc.createNestedObject("device");
+  JsonObject device = doc["device"].to<JsonObject>();
   device["ids"] = macAddr;      // Use the full MAC address as identifier
   device["name"] = "Mailbox";   // Device name
-  device["mf"] = "Sensorsiot";  // Include supplier info
-  device["mdl"] = "Notifier";
+  device["mf"] = "hewmorist";  // Include supplier info
+  device["mdl"] = "Hub";
   device["sw"] = "1.0";
-  device["hw"] = "0.9";
+  device["hw"] = "0.1";
   
   char buffer[256];
   serializeJson(doc, buffer);  // Serialize JSON object to buffer
@@ -127,7 +127,7 @@ void setup() {
   Serial.println("Begin Setup");
 
   Serial.begin(9600);
-  Serial2.begin(9600, SERIAL_8N1, RXD2, TXD2);
+  Serial1.begin(9600, SERIAL_8N1, RXD2, TXD2);
   pinMode(M0, OUTPUT);
   pinMode(M1, OUTPUT);
   pinMode(AUX, INPUT_PULLUP);
@@ -144,7 +144,7 @@ void setup() {
 
   byte data[] = { 0xC0, 0x0, 0x1, 0x1D, 0x34, 0x40 }; //914 MHz, Chan 1, 9.6k uart, 19.2k air
   for (int i = 0; i < sizeof(data); i++) {
-    Serial2.write(data[i]);
+    Serial1.write(data[i]);
     Serial.println(data[i], HEX);
   }
   delay(10);
@@ -156,7 +156,7 @@ void setup() {
   digitalWrite(M0, LOW);
   digitalWrite(M1, LOW);
   delay(1000);
-  Serial2.flush();
+  Serial1.flush();
 
   // Get the MAC address of the board
   macAddr = WiFi.macAddress();
@@ -182,10 +182,10 @@ void loop() {
   }
   client.loop();
 
-  if (Serial2.available() > 0) {
-    while (Serial2.available() > 0) {
+  if (Serial1.available() > 0) {
+    while (Serial1.available() > 0) {
 
-      receivedCode = Serial2.read();
+      receivedCode = Serial1.read();
       Serial.print(receivedCode, HEX);
 
       if (receivedCode == ARRIVED) {
@@ -206,7 +206,7 @@ void loop() {
   }
 
   if (transmissionSuccess) {
-    Serial2.write(ACKNOWLEDGE);
+    Serial1.write(ACKNOWLEDGE);
     Serial.println(mailBoxStatus);
     transmissionSuccess = false;
     Serial.println("Transmission acknowledged");
