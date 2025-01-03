@@ -8,12 +8,11 @@
         {
             "name": "PlatformIO",
             "includePath": [
-                "/workspaces/ESP32C3LoraHub/src",
-                "/workspaces/ESP32C3LoraHub/.pio/libdeps/esp32-c3-devkitc-02/ArduinoJson/src",
-                "/workspaces/ESP32C3LoraHub/.pio/libdeps/esp32-c3-devkitc-02/PubSubClient/src",
-                "/workspaces/ESP32C3LoraHub/.pio/libdeps/esp32-c3-devkitc-02/WiFi/src",
-                "/workspaces/ESP32C3LoraHub/.pio/libdeps/esp32-c3-devkitc-02/FastLED/src",
-                "/home/vscode/.platformio/packages/framework-arduinoespressif32/libraries/SPI/src",
+                "${workspaceFolder}/src",
+                "/home/vscode/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src",
+                "${workspaceFolder}/.pio/libdeps/esp32-c3-devkitc-02/ArduinoJson/src",
+                "${workspaceFolder}/.pio/libdeps/esp32-c3-devkitc-02/PubSubClient/src",
+                "${workspaceFolder}/.pio/libdeps/esp32-c3-devkitc-02/FastLED/src",
                 "/home/vscode/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32c3/include/newlib/platform_include",
                 "/home/vscode/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32c3/include/freertos/include",
                 "/home/vscode/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32c3/include/freertos/include/esp_additions/freertos",
@@ -207,6 +206,7 @@
                 "/home/vscode/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32c3/qio_qspi/include",
                 "/home/vscode/.platformio/packages/framework-arduinoespressif32/cores/esp32",
                 "/home/vscode/.platformio/packages/framework-arduinoespressif32/variants/esp32c3",
+                "/home/vscode/.platformio/packages/framework-arduinoespressif32/libraries/SPI/src",
                 "/home/vscode/.platformio/packages/framework-arduinoespressif32/libraries/ArduinoOTA/src",
                 "/home/vscode/.platformio/packages/framework-arduinoespressif32/libraries/AsyncUDP/src",
                 "/home/vscode/.platformio/packages/framework-arduinoespressif32/libraries/BLE/src",
@@ -235,21 +235,20 @@
                 "/home/vscode/.platformio/packages/framework-arduinoespressif32/libraries/USB/src",
                 "/home/vscode/.platformio/packages/framework-arduinoespressif32/libraries/Update/src",
                 "/home/vscode/.platformio/packages/framework-arduinoespressif32/libraries/WebServer/src",
-                "/home/vscode/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src",
                 "/home/vscode/.platformio/packages/framework-arduinoespressif32/libraries/WiFiClientSecure/src",
                 "/home/vscode/.platformio/packages/framework-arduinoespressif32/libraries/WiFiProv/src",
                 "/home/vscode/.platformio/packages/framework-arduinoespressif32/libraries/Wire/src",
-                ""
+                "",
+                "${workspaceFolder}/.pio/libdeps/esp32-c3-devkitc-02/FastLED/src/platforms/wasm/compiler"
             ],
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
                 "path": [
-                    "/workspaces/ESP32C3LoraHub/src",
-                    "/workspaces/ESP32C3LoraHub/.pio/libdeps/esp32-c3-devkitc-02/ArduinoJson/src",
-                    "/workspaces/ESP32C3LoraHub/.pio/libdeps/esp32-c3-devkitc-02/PubSubClient/src",
-                    "/workspaces/ESP32C3LoraHub/.pio/libdeps/esp32-c3-devkitc-02/WiFi/src",
-                    "/workspaces/ESP32C3LoraHub/.pio/libdeps/esp32-c3-devkitc-02/FastLED/src",
-                    "/home/vscode/.platformio/packages/framework-arduinoespressif32/libraries/SPI/src",
+                    "${workspaceFolder}/src",
+                    "/home/vscode/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src",
+                    "${workspaceFolder}/.pio/libdeps/esp32-c3-devkitc-02/ArduinoJson/src",
+                    "${workspaceFolder}/.pio/libdeps/esp32-c3-devkitc-02/PubSubClient/src",
+                    "${workspaceFolder}/.pio/libdeps/esp32-c3-devkitc-02/FastLED/src",
                     "/home/vscode/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32c3/include/newlib/platform_include",
                     "/home/vscode/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32c3/include/freertos/include",
                     "/home/vscode/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32c3/include/freertos/include/esp_additions/freertos",
@@ -443,6 +442,7 @@
                     "/home/vscode/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32c3/qio_qspi/include",
                     "/home/vscode/.platformio/packages/framework-arduinoespressif32/cores/esp32",
                     "/home/vscode/.platformio/packages/framework-arduinoespressif32/variants/esp32c3",
+                    "/home/vscode/.platformio/packages/framework-arduinoespressif32/libraries/SPI/src",
                     "/home/vscode/.platformio/packages/framework-arduinoespressif32/libraries/ArduinoOTA/src",
                     "/home/vscode/.platformio/packages/framework-arduinoespressif32/libraries/AsyncUDP/src",
                     "/home/vscode/.platformio/packages/framework-arduinoespressif32/libraries/BLE/src",
@@ -471,7 +471,6 @@
                     "/home/vscode/.platformio/packages/framework-arduinoespressif32/libraries/USB/src",
                     "/home/vscode/.platformio/packages/framework-arduinoespressif32/libraries/Update/src",
                     "/home/vscode/.platformio/packages/framework-arduinoespressif32/libraries/WebServer/src",
-                    "/home/vscode/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src",
                     "/home/vscode/.platformio/packages/framework-arduinoespressif32/libraries/WiFiClientSecure/src",
                     "/home/vscode/.platformio/packages/framework-arduinoespressif32/libraries/WiFiProv/src",
                     "/home/vscode/.platformio/packages/framework-arduinoespressif32/libraries/Wire/src",
@@ -505,6 +504,17 @@
                 "-march=rv32imc",
                 ""
             ]
+        },
+        {
+            "name": "Esp32C3DecKitC",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c17",
+            "cppStandard": "gnu++17",
+            "intelliSenseMode": "linux-gcc-x64"
         }
     ],
     "version": 4
