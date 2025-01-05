@@ -1,14 +1,16 @@
+#include <Arduino.h>
+#include <HardwareSerial.h>
 #include <WiFi.h>
 #include <PubSubClient.h>
 #include <ArduinoJson.h>
 #include "Secrets.h"
 
-#define M0 21
-#define M1 19
+#define M0 5
+#define M1 6
 #define AUX 4
 
-#define TXD2 17 
-#define RXD2 16
+#define TXD2 19 
+#define RXD2 18
 
 #define ARRIVED 0x55
 #define EMPTY 0xAA
@@ -24,7 +26,9 @@ String discoveryTopic;
 enum boxStatus {
   empty,
   full
-} mailBoxStatus = empty;
+};
+
+boxStatus mailBoxStatus = empty;
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -100,8 +104,8 @@ void mqtt_discovery() {
 
   JsonDocument doc;  // Allocate memory for the JSON document
 
-  doc["name"] = "Mailbox";
-  doc["device_class"] = "occupancy";
+  doc["name"] = "LoraHub";
+  doc["device_class"] = "security";
   doc["state_topic"] = "homeassistant/binary_sensor/" + uniqueID + "/state";
   doc["unique_id"] = uniqueID;  // Use MAC-based unique ID
 
@@ -124,15 +128,20 @@ void mqtt_discovery() {
 
 void setup() {
 
-  Serial.println("Begin Setup");
+  HardwareSerial Serial2(1);
 
-  Serial.begin(9600);
-  Serial1.begin(9600, SERIAL_8N1, RXD2, TXD2);
+  Serial2.begin(9600, SERIAL_8N1, RXD2, TXD2);
   pinMode(M0, OUTPUT);
   pinMode(M1, OUTPUT);
-  pinMode(AUX, INPUT_PULLUP);
+  pinMode(AUX, INPUT_PULLUP); 
+  delay(1000); 
+
+  Serial.begin(115200);
+  delay(1000);
+  Serial.println("Begin Setup");
 
   setup_wifi();
+
   client.setServer(mqtt_server, 1883);
   client.setBufferSize(512);
   client.setCallback(callback);
@@ -144,19 +153,19 @@ void setup() {
 
   byte data[] = { 0xC0, 0x0, 0x1, 0x1D, 0x34, 0x40 }; //914 MHz, Chan 1, 9.6k uart, 19.2k air
   for (int i = 0; i < sizeof(data); i++) {
-    Serial1.write(data[i]);
+    Serial2.write(data[i]);
     Serial.println(data[i], HEX);
   }
   delay(10);
   Serial.println("Starting");
-  while (digitalRead(AUX) == LOW)
-    ;
+  //while (digitalRead(AUX) == LOW)
+   // ;
 
     Serial.println("AUX went High");
   digitalWrite(M0, LOW);
   digitalWrite(M1, LOW);
   delay(1000);
-  Serial1.flush();
+  Serial2.flush();
 
   // Get the MAC address of the board
   macAddr = WiFi.macAddress();
@@ -171,21 +180,24 @@ void setup() {
   discoveryTopic = "homeassistant/binary_sensor/" + uniqueID + "/config";
   Serial.println("Sending discovery MQTT");
   // Send MQTT discovery message
-  mqtt_discovery();
+  mqtt_discovery(); 
+
   Serial.println("Init finished");
 }
 
 void loop() {
+
+   Serial.println("Begin Loop");
   
-  if (!client.connected()) {
+  /* if (!client.connected()) {
     reconnect();
   }
   client.loop();
 
-  if (Serial1.available() > 0) {
-    while (Serial1.available() > 0) {
+  if (Serial2.available() > 0) {
+    while (Serial2.available() > 0) {
 
-      receivedCode = Serial1.read();
+      receivedCode = Serial2.read();
       Serial.print(receivedCode, HEX);
 
       if (receivedCode == ARRIVED) {
@@ -206,9 +218,12 @@ void loop() {
   }
 
   if (transmissionSuccess) {
-    Serial1.write(ACKNOWLEDGE);
+    Serial2.write(ACKNOWLEDGE);
     Serial.println(mailBoxStatus);
     transmissionSuccess = false;
     Serial.println("Transmission acknowledged");
-  }
+  } */
+ 
+ delay(1000);
+ 
 }
